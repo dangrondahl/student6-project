@@ -3,8 +3,8 @@
 - name: Install java
   yum:
     name: java
-- name:
-  file: 
+- name: Create directory to store binary
+  file:
     path: /opt/wildflyapp
     state: directory
 - name: Copy jar file to the server
@@ -26,13 +26,13 @@
   systemd:
     daemon_reload: yes
 - name: Enable the wildfly app service script
-  systemd: 
+  systemd:
     name: wildflyapp
     enabled: yes
     masked: no
   no_log: true
 - name: Restart the wildfly app if there are any changes
-  systemd: 
+  systemd:
     name: wildflyapp
     state: restarted
   when: jar_file_copy.changed or service_script_create.changed
